@@ -2,6 +2,7 @@ version: 2.1
 
 stages:
   - build
+  - test
 
 jobs:
   build:
@@ -16,6 +17,7 @@ jobs:
     docker:
       - image: ubuntu
     steps:
+      - stage: tests
       - run:
           name: SAST via Kondukto
           command: |
