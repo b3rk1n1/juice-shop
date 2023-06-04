@@ -13,7 +13,7 @@ jobs:
           name: Project Building
           command: echo "Project Building"
 
-  sast_test:
+  test:
     docker:
       - image: ubuntu
     steps:
