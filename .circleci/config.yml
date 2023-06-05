@@ -1,7 +1,6 @@
-version: 2.1
-
 stages:
   - build
+  - test
 
 jobs:
   build:
@@ -11,16 +10,12 @@ jobs:
       - run:
           name: Project Building
           command: echo "Project Building"
-
-  sast_test:
-    docker:
-      - image: ubuntu
-    steps:
-      - run:
-          name: SAST via Kondukto
-          command: |
-            echo "Running SAST"
-            curl -sSL https://cli.kondukto.io | sh
-            export KONDUKTO_HOST=$KONDUKTO_HOST
-            export KONDUKTO_TOKEN=$KONDUKTO_TOKEN
-            kdt scan -p jusiceshopcircleci -t gosec -b master
+  jobs:
+    build:
+      steps:
+        run:
+        - echo "Running SAST"
+        - curl -sSL https://cli.kondukto.io | sh
+        - export KONDUKTO_HOST=$KONDUKTO_HOST
+        - export KONDUKTO_TOKEN=$KONDUKTO_TOKEN
+        - kdt scan -p jusiceshopcircleci -t gosec -b master
